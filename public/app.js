@@ -108,11 +108,6 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
   // , "RihannaVEVO", "onedirectionvevo", "JennaMarbles", "KatyPerryVEVO", "eminemVEVO", "nigahiga", "youtubeshowsus", "machinima", "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "JustinBieberVEVO", "TheEllenShow", "TheFineBros", "portadosfundos", "werevertumorro", "TheOfficialSkrillex", "TaylorSwiftVEVO", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew", "VEVO", "mileycyrusvevo", "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
 
 
-
-    $scope.averageViews = [];
-
-
-
     $scope.influencers.map(function(influencer){
 
           $http.get("http://gdata.youtube.com/feeds/api/users/" + influencer + "?alt=json")
@@ -134,9 +129,9 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
         });
 
 
-    window.setTimeout(function(){ console.log($scope.influencersData) }, 1000);
+  window.setTimeout(function(){ console.log($scope.influencersData) }, 1000);
 
-    $scope.parseInt = parseInt;
+  $scope.parseInt = parseInt;
 
 
    
@@ -195,8 +190,6 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
     return $http.get('superheroes.json');
   };
 
-
-	
   $scope.filteredProfiles = $scope.influencersData;
 	
 }]);
