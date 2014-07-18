@@ -61,7 +61,9 @@ h1 {
 
 .navbar-default {
 	display: flex;
+	-webkit-display: flex;
 	justify-content: center;
+	-webkit-justify-content: center;
 	background-color: transparent;
 	border: none;
 }
@@ -73,8 +75,10 @@ h1 {
 .nav {
 	/*background-color: yellow;*/
 	display: flex;
+	-webkit-display: flex;
 	align-items: center;
 	justify-content: center;
+	-webkit-justify-content: center;
 }
 
 /* logo */
@@ -92,6 +96,12 @@ h1 {
 	color: #454545;
 	border-bottom: solid #ff6a6b;
 	margin-left: 100px;
+	padding-bottom: 10px;
+	transition: 0.5s;
+}
+
+.influencer-nav:hover {
+	padding-bottom: 3px;
 }
 
 .brand-nav {
@@ -99,6 +109,7 @@ h1 {
 	color: #454545;
 	border-bottom: solid #17c4ca;
 	margin-right: 100px;
+	padding-bottom: 10px;
 }
 /* end influencer and brand menu */
 
