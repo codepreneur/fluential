@@ -77,11 +77,11 @@
       </div>
           <i class="col-md-2 fa fa-search fa-5x"></i>
       </div>
-      <div class="btn-group">
+      <!-- <div class="btn-group">
           <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'subscribers'">Subscribers</label>
           <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'total_views'">Views</label>
           <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'growth_rate'">Growth</label>
-      </div>
+      </div> -->
   </div>
 
 <!-- SEARCH RESULTS -->
@@ -93,7 +93,8 @@
             <div class="box">
               <img ng-click="open('lg',$index)" src="{{profile.entry.media$thumbnail.url}}" alt="Something"/>
               <h1>{{profile.entry.title.$t}}</h1>
-              <p><span class="views-number">8,444,555</span> <span class="views-text">views/vid</span></p>
+              <p><span class="views-number">{{profile.entry.yt$statistics.totalUploadViews}}</span>
+                <span class="views-text">views/vid</span></p>
               <p>American violinist, dancer, performance, artist and composer</p>
             </div>
           </div>
