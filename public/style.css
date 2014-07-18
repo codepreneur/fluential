@@ -159,6 +159,7 @@ h1 {
 	border-top: solid turquoise;
 	border-bottom: 2px solid turquoise;
 	padding: 0;
+	overflow: hidden;
 }
 
 .btn-group {
@@ -171,10 +172,12 @@ h1 {
 }
 
 .box img {
-	width: 30%;
+	width: 100%;
 	border: 0;
 	outline: none;
 	margin: 0;
+	position: relative;
+	top: -30px;
 }
 
 .box h1 {
