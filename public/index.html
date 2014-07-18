@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="fluential">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="ng-tags-input.css" />
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="ng-tags-input.css" />
   <link rel="stylesheet" href="style.css">
 
   <!-- maggie -->
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- /maggie -->
 
-	<title>Fluential</title>
+  <title>Fluential</title>
 </head>
 <body ng-controller="FluentialCtrl">
 
@@ -84,21 +84,99 @@
       </div> -->
   </div>
 
+<!-- SEARCH RESULTS -->
+<div class="container">
+  <div class="row">
+     <div class="col-md-12">
+        <section>
+          <div ng-repeat="influencer in (filteredProfiles | orderBy:radioModel:!reverse)" class="col-md-3 box-container">
+            <div class="box">
+              <img ng-click="open('lg',influencer.username)" src="{{influencer.videos.0.media$group.media$thumbnail.0.url}}" alt="Something"/>
+              <h1>{{influencer.profile.title.$t}}</h1>
+              <!-- <h2>{{influencer.username}}</h2> -->
+              <p><span class="views-number">{{influencer.avg}}</span> <span class="views-text">{{ ((parseInt(influencer.videos.0.yt$statistics.viewCount) + parseInt(influencer.videos.1.yt$statistics.viewCount)) / 2) | number:0 }} views/vid</span></p>
+              <p>American violinist, dancer, performance, artist and composer</p>
+            </div>
+          </div>
+        </section>
+     </div> 
+
+  </div>
+</div>
+
+  <script type="text/ng-template" id="myModalContent.html">
+    <div>
+        <div class="modal-header">
+            <h3 class="modal-title">{{influencers.profile.title.$t}}</h3>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-4">
+  
+                  <embed-video data-ng-href={{"https://youtu.be/" + influencers.videos.0.yt$statistics.viewCount.match(/v\/(.*)\?/) }} controls=0></embed-video>
+                </div>
+                <div class="col-xs-8">
+                  {{ influencers.profile.content.$t }}
+                </div>
+              </div>
+            </div>
+          
+            <div class="stats">
+              <div> Subscribers: {{ profiles.yt$statistics.subscriberCount }}</div>
+              <div> Views: {{ profiles.yt$statistics.totalUploadViews }}</div>
+              <div> Average views: {{ profiles.average_views }}</div>
+              <div> Growth rate: {{ profiles.growth_rate }}</div>
+            </div>
+          
+
+            <div class="trend-container">
+              <div class="trend">
+              <trend-line data="[{x:10,y:50},{x:20,y:70},{x:30,y:30},{x:40,y:50},{x:50,y:30},{x:60,y:40},{x:50,y:30},{x:60,y:40}]">
+              </trend-line>
+              </div>
+
+              <div class="trend">
+              <trend-line data="[{x:10,y:20},{x:20,y:40},{x:30,y:30},{x:40,y:50},{x:50,y:70}]">
+              </trend-line>
+              </div>
+
+              <div class="trend">
+              <trend-line data="[{x:10,y:20},{x:20,y:40},{x:30,y:30},{x:40,y:50},{x:50,y:70}]">
+              </trend-line>
+              </div>
+
+              <div class="trend">
+              <trend-line data="[{x:10,y:20},{x:20,y:40},{x:30,y:30},{x:40,y:50},{x:50,y:70}]">
+              </trend-line>
+              </div>
+            </div>
+
+        
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>  
+  </script> 
+
+</div>
 
 
   <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script> 
-	<script src="http://d3js.org/d3.v3.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-animate.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-animate.js"></script>
 
   <script src="app.js"></script>
   <script src="https://rawgithub.com/erost/ng-videosharing-embed/master/build/ng-videosharing-embed.min.js"></script>
 
-	<script src="ui-bootstrap-tpls-0.11.0.min.js"></script>
+  <script src="ui-bootstrap-tpls-0.11.0.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.js"></script>
-	<script src="ui-utils.min.js"></script>
+  <script src="ui-utils.min.js"></script>
 </body>
 </html>
 

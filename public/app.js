@@ -107,25 +107,10 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 
   // , "RihannaVEVO", "onedirectionvevo", "JennaMarbles", "KatyPerryVEVO", "eminemVEVO", "nigahiga", "youtubeshowsus", "machinima", "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "JustinBieberVEVO", "TheEllenShow", "TheFineBros", "portadosfundos", "werevertumorro", "TheOfficialSkrillex", "TaylorSwiftVEVO", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew", "VEVO", "mileycyrusvevo", "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
 
-// <<<<<<< HEAD
-  // $scope.influencers = ["PewDiePie", "YouTube", "movies", "holasoygerman", "smosh", "RihannaVEVO", "onedirectionvevo", "JennaMarbles", "KatyPerryVEVO", "eminemVEVO", "nigahiga", "youtubeshowsus", "machinima", "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "JustinBieberVEVO", "TheEllenShow", "TheFineBros", "portadosfundos", "werevertumorro", "TheOfficialSkrillex", "TaylorSwiftVEVO", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew", "VEVO", "mileycyrusvevo", "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
-//   $scope.influencers = ["PewDiePie", "holasoygerman", "smosh", "JennaMarbles"];
 
-//     $scope.top10Videos = $scope.influencers.map(function(influencer){
-//       return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=10";
-//     });
-
-//     $scope.firstVideo = $scope.influencers.map(function(influencer){
-//       return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=1";
-//     });
-
-//     $scope.top50Influencers = $scope.influencers.map(function(influencer){
-//       return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"?alt=json";     
-//     })
-// =======
 
     $scope.averageViews = [];
-// >>>>>>> 8576c4f644d14068244359ade1b584a1e27cf5b8
+
 
 
     $scope.influencers.map(function(influencer){
@@ -138,12 +123,9 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
             $http.get("http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=10")
               .success(function(videoData){
 
-                // console.log(videoData.feed.entry.0.yt$statistics.viewCount);
-                // console.log(videoData.feed.entry.1.yt$statistics.viewCount);
-                // console.log(videoData.feed.entry.2.yt$statistics.viewCount);
+                var code = videoData.feed.entry[0].media$group.media$content[0].url.match(/v\/(.*)\?/)[1]
 
-                
-                $scope.influencersData[influencer] = { profile: profileData, videos: videoData.feed.entry, username: influencer  };
+                $scope.influencersData[influencer] = { profile: profileData, videos: videoData.feed.entry, username: influencer, code: code };
 
               });
 
