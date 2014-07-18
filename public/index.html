@@ -89,12 +89,19 @@
   <div class="row">
      <div class="col-md-12">
         <section>
-          <div ng-repeat="profile in (filteredProfiles | orderBy:radioModel:!reverse)" class="col-md-3 box-container">
+          <div ng-repeat="influencer in (filteredProfiles | orderBy:radioModel:!reverse)" class="col-md-3 box-container">
             <div class="box">
+<!-- <<<<<<< HEAD
               <img ng-click="open('lg',$index)" src="{{profile.entry.media$thumbnail.url}}" alt="Something"/>
               <h1>{{profile.entry.title.$t}}</h1>
               <p><span class="views-number">{{profile.entry.yt$statistics.totalUploadViews}}</span>
                 <span class="views-text">views/vid</span></p>
+======= -->
+              <img ng-click="open('lg',influencer.username)" src="{{influencer.videos.0.media$group.media$thumbnail.0.url}}" alt="Something"/>
+              <h1>{{influencer.profile.title.$t}}</h1>
+              <!-- <h2>{{influencer.username}}</h2> -->
+              <p><span class="views-number">{{influencer.avg}}</span> <span class="views-text">{{ ((parseInt(influencer.videos.0.yt$statistics.viewCount) + parseInt(influencer.videos.1.yt$statistics.viewCount)) / 2) | number:0 }} views/vid</span></p>
+<!-- >>>>>>> 8576c4f644d14068244359ade1b584a1e27cf5b8 -->
               <p>American violinist, dancer, performance, artist and composer</p>
             </div>
           </div>
@@ -107,24 +114,24 @@
   <script type="text/ng-template" id="myModalContent.html">
     <div>
         <div class="modal-header">
-            <h3 class="modal-title">{{profiles.entry.title.$t}}</h3>
+            <h3 class="modal-title">{{influencers.profile.title.$t}}</h3>
         </div>
         <div class="modal-body">
             <div class="container">
               <div class="row">
                 <div class="col-xs-4">
   
-                  <embed-video data-ng-href="https://youtu.be/HG-WbtoAf2k" controls=0></embed-video>
+                  <embed-video data-ng-href={{"https://youtu.be/" + influencers.videos.0.yt$statistics.viewCount.match(/v\/(.*)\?/) }} controls=0></embed-video>
                 </div>
                 <div class="col-xs-8">
-                  {{ profiles.entry.content.$t }}
+                  {{ influencers.profile.content.$t }}
                 </div>
               </div>
             </div>
           
             <div class="stats">
-              <div> Subscribers: {{ profiles.entry.yt$statistics.subscriberCount }}</div>
-              <div> Views: {{ profiles.entry.yt$statistics.totalUploadViews }}</div>
+              <div> Subscribers: {{ profiles.yt$statistics.subscriberCount }}</div>
+              <div> Views: {{ profiles.yt$statistics.totalUploadViews }}</div>
               <div> Average views: {{ profiles.average_views }}</div>
               <div> Growth rate: {{ profiles.growth_rate }}</div>
             </div>
@@ -164,6 +171,7 @@
 </div>
 
 
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script> 
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>

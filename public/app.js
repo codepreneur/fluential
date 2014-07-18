@@ -6,11 +6,11 @@ app.controller('FluentialCtrl', ['$scope', function ($scope) {
 
 }]);
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, profiles) {
+var ModalInstanceCtrl = function ($scope, $modalInstance, influencers) {
 
-  $scope.profiles = profiles;
+  $scope.influencers = influencers;
   $scope.selected = {
-    profile: $scope.profiles[0]
+    influencer: $scope.influencers.first
   };
 
   console.log($scope.selected);
@@ -101,52 +101,60 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 	});
 
 
-  var top10Videos;
-  var top50Influencers;
+  $scope.influencersData = {};
 
-  $scope.influencersData = [];
-  $scope.videosData = [];
+  $scope.influencers = ["PewDiePie", "holasoygerman", "smosh"]
 
-  // $scope.influencersData['videos'] = $scope.videosData.feed.entry
-  // $scope.allData =
+  // , "RihannaVEVO", "onedirectionvevo", "JennaMarbles", "KatyPerryVEVO", "eminemVEVO", "nigahiga", "youtubeshowsus", "machinima", "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "JustinBieberVEVO", "TheEllenShow", "TheFineBros", "portadosfundos", "werevertumorro", "TheOfficialSkrillex", "TaylorSwiftVEVO", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew", "VEVO", "mileycyrusvevo", "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
 
+// <<<<<<< HEAD
   // $scope.influencers = ["PewDiePie", "YouTube", "movies", "holasoygerman", "smosh", "RihannaVEVO", "onedirectionvevo", "JennaMarbles", "KatyPerryVEVO", "eminemVEVO", "nigahiga", "youtubeshowsus", "machinima", "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "JustinBieberVEVO", "TheEllenShow", "TheFineBros", "portadosfundos", "werevertumorro", "TheOfficialSkrillex", "TaylorSwiftVEVO", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew", "VEVO", "mileycyrusvevo", "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
-  $scope.influencers = ["PewDiePie", "holasoygerman", "smosh", "JennaMarbles"];
+//   $scope.influencers = ["PewDiePie", "holasoygerman", "smosh", "JennaMarbles"];
 
-    $scope.top10Videos = $scope.influencers.map(function(influencer){
-      return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=10";
-    });
+//     $scope.top10Videos = $scope.influencers.map(function(influencer){
+//       return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=10";
+//     });
 
-    $scope.firstVideo = $scope.influencers.map(function(influencer){
-      return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=1";
-    });
+//     $scope.firstVideo = $scope.influencers.map(function(influencer){
+//       return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=1";
+//     });
 
-    $scope.top50Influencers = $scope.influencers.map(function(influencer){
-      return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"?alt=json";     
-    })
+//     $scope.top50Influencers = $scope.influencers.map(function(influencer){
+//       return "http://gdata.youtube.com/feeds/api/users/"+ influencer +"?alt=json";     
+//     })
+// =======
+
+    $scope.averageViews = [];
+// >>>>>>> 8576c4f644d14068244359ade1b584a1e27cf5b8
 
 
-    $scope.top50Influencers.map(function(influencer){
+    $scope.influencers.map(function(influencer){
 
-          $http.get(influencer)
+          $http.get("http://gdata.youtube.com/feeds/api/users/" + influencer + "?alt=json")
           .success(function(data){
 
-            return $scope.influencersData.push(data);
+            var profileData = data.entry;
+
+            $http.get("http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=10")
+              .success(function(videoData){
+
+                // console.log(videoData.feed.entry.0.yt$statistics.viewCount);
+                // console.log(videoData.feed.entry.1.yt$statistics.viewCount);
+                // console.log(videoData.feed.entry.2.yt$statistics.viewCount);
+
+                
+                $scope.influencersData[influencer] = { profile: profileData, videos: videoData.feed.entry, username: influencer  };
+
+              });
+
          });
 
-        })
+        });
 
-  
 
-    $scope.top10Videos.map(function(video){
+    window.setTimeout(function(){ console.log($scope.influencersData) }, 1000);
 
-          $http.get(video)
-          .success(function(data){
-
-            return $scope.videosData.push(data);
-         });
-          
-        })
+    $scope.parseInt = parseInt;
 
 
    
@@ -163,7 +171,7 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 		}
 
 		$scope.filteredProfiles = $scope.influencersData.filter(function(influencer) {
-			var keywords = influencer.entry.title.$t.split(' ')
+			var keywords = influencer.title.$t.split(' ')
 
 			return keywords.some(function(keyword) {
 				return (tags.indexOf(keyword) > -1);
@@ -171,17 +179,17 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 		})
 	}
 
-  $scope.open = function (size,index) {
-  	console.log(index);
-  	// console.log($scope.profiles[index].video);
+  $scope.open = function (size,username) {
+  	console.log(username);
+  	
     var modalInstance = $modal.open({
       templateUrl: 'myModalContent.html',
       controller: ModalInstanceCtrl,
       size: size,
       resolve: {
-        profiles: function () {
+        influencers: function () {
           $scope.filteredOrderedProfiles = $filter('orderBy')($scope.filteredProfiles,$scope.radioModel,'!reverse');
-          return $scope.filteredOrderedProfiles[index];
+          return $scope.filteredOrderedProfiles[username];
           
         }
       }
@@ -206,10 +214,10 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
   };
 
 
-	$scope.filteredProfiles = $scope.influencersData;
+	
+  $scope.filteredProfiles = $scope.influencersData;
 	
 }]);
-
 
 
 
