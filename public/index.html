@@ -1,157 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="fluential">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="ng-tags-input.css" />
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="ng-tags-input.css" />
   <link rel="stylesheet" href="style.css">
-
-  <!-- maggie -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- /maggie -->
-
-	<title>Fluential</title>
+  <title>Fluential</title>
 </head>
 <body ng-controller="FluentialCtrl">
 
-
 <!-- HEADER -->
 
-<nav role="navigation" class="navbar navbar-default">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar navbar-header">
-        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <!-- Collection of nav links and other content for toggling -->
-    <div id="navbarCollapse" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class='menu-nav'><a href="#"><span class='brand-nav navicon'>brand menu</span></a></li>
-        <li class='navbar-brand'><a href="#"> </a></li>
-        <li class='menu-nav'><a href="#"><span class='influencer-nav navicon'>influencer menu</span></a></li>
-      </ul>
-    </div>
+<nav role="navigation" class="navbar-default">
+  <ul class="nav">
+    <li class='menu-nav'><a href="#"><span class='brand-nav navicon'>brand menu</span></a></li>
+    <li class='navbar-brand'><a href="#"> </a></li>
+    <li class='menu-nav'><a href="#"><span class='influencer-nav navicon'>influencer menu</span></a></li>
+  </ul>
 </nav>
 
 <!-- END HEADER -->
+
+<!-- SEARCH BAR -->
 
 <div ng-controller="TagsCtrl">
 
   <div class="row">
     <div class="col-md-12 search-bar">
       <div class="col-md-10">
-        <tags-input name="tags" class="tagz" placeholder="Begin typing to search..." ng-model="tags" on-tag-added='filterProfiles()' on-tag-removed='filterProfiles()'>
+        <tags-input
+          name="tags"
+          class="tagz"
+          placeholder="Begin typing to search..."
+          ng-model="tags"
+          on-tag-added='filterProfiles()'
+          on-tag-removed='filterProfiles()'>
           <auto-complete source="loadTags($query)"></auto-complete>
         </tags-input>
       </div>
-          <i class="col-md-2 fa fa-search fa-5x"></i>
-      </div>
-      <div class="btn-group">
-          <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'subscribers'">Subscribers</label>
-          <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'views'">Total Views</label>
-          <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'averageViews'">Average Views</label>
-      </div>
+      <i class="col-md-2 fa fa-search fa-5x"></i>
+    </div>
   </div>
 
-<!-- SEARCH RESULTS -->
-<div class="container">
-  <div class="row">
-     <div class="col-md-12">
-        <section>
-          <div ng-repeat="influencer in filteredProfiles | toArray | orderBy:radioModel:!reverse" class="col-md-3 box-container">
-              <div class='box'>
-              <div class="overlay" ng-click="open('lg',influencer.username)"><h1>{{influencer.profile.title.$t}}</h1></div>
-                  <img src="{{influencer.videos.0.media$group.media$thumbnail.0.url}}">
-                  <h1 class='h11'>{{influencer.profile.title.$t}}</h1>
+  <!-- END SEARCH BAR -->
 
-                  <p><span class="views-text">{{ influencer.averageViews | number:0 }} views/vid</span></p>
-                  <p>American violinist, dancer, performance, artist and composer</p>
-              </div>
+  <!-- FILTER -->
+
+  <div class="btn-group">
+    <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'subscribers'">SUBSCRIBERS</label>
+    <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'views'">TOTAL VIEWS</label>
+    <label class="btn btn-default btn-sm" ng-model="radioModel" btn-radio="'averageViews'">AVERAGE VIEWS</label>
+  </div>
+
+  <!-- END FILTER -->
+
+
+  <!-- SEARCH RESULTS -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div ng-repeat="influencer in filteredProfiles | toArray | orderBy:radioModel:!reverse" class="col-md-3 box-container">
+          <div class="box">
+            <div class="overlay" ng-click="open('lg',influencer.username)">
+              <h1>{{influencer.profile.title.$t}}</h1>
+            </div>
+            <div class="thumbnail">
+              <img src="{{influencer.videos.0.media$group.media$thumbnail.0.url}}" alt="influencer"/>
+            </div>
+            <h2>{{ influencer.averageViews | number:0 }}<span class="views-text">views/vid</span></h2> 
+            <p>{{ influencer.profile.content.$t }}</p>
           </div>
-        </section>
-     </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- END SEARCH RESULTS -->
+
+  <!-- MODAL -->
 
   <script type="text/ng-template" id="myModalContent.html">
-    <div>
-        <div class="modal-header">
-            <h3 class="modal-title">{{influencers.profile.title.$t}}</h3>
-        </div>
-        <div class="modal-body">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-4">
-  
-                  <embed-video data-ng-href="https://youtu.be/{{ influencers.code}}" controls=0></embed-video>
-                  
-
-                </div>
-                <div class="col-xs-8">
-                  {{ influencers.profile.content.$t }}
-                </div>
-              </div>
-            </div>
-          
-            <div class="stats">
-              <div> Subscribers: {{ influencers.profile.yt$statistics.subscriberCount }}</div>
-              <div> Views: {{ influencers.profile.yt$statistics.totalUploadViews }}</div>
-              <div> Growth rate: 5%</div>
-            </div>
-          
-
-            <!-- <div class="trend-container">
-              <div class="trend">
-              <trend-line data="[{x:10,y:50},{x:20,y:70},{x:30,y:30},{x:40,y:50},{x:50,y:30},{x:60,y:40},{x:50,y:30},{x:60,y:40}]">
-              </trend-line>
-              </div>
-
-              <div class="trend">
-              <trend-line data="[{x:10,y:20},{x:20,y:40},{x:30,y:30},{x:40,y:50},{x:50,y:70}]">
-              </trend-line>
-              </div>
-
-              <div class="trend">
-              <trend-line data="[{x:10,y:20},{x:20,y:40},{x:30,y:30},{x:40,y:50},{x:50,y:70}]">
-              </trend-line>
-              </div>
-
-              <div class="trend">
-              <trend-line data="[{x:10,y:20},{x:20,y:40},{x:30,y:30},{x:40,y:50},{x:50,y:70}]">
-              </trend-line>
-              </div>
-            </div> -->
-
-        
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">{{influencers.profile.title.$t}}</h3>
+        <i class="fa fa-times fa-2x close" ng-click="ok()"></i>
+      </div>
+      <div class="modal-body">
+        <embed-video class="test" data-ng-href="https://youtu.be/{{ influencers.code}}" controls=0></embed-video>
+        <table class="stats">
+          <tr class="subscribers">
+            <td class="key">Subscribers:</td>
+            <td class="stat">{{ influencers.profile.yt$statistics.subscriberCount | number:0}}</td>
+          </tr>
+          <tr class="views">
+            <td class="key">Total views:</td>
+            <td class="stat">{{ influencers.profile.yt$statistics.totalUploadViews | number:0 }}</td>
+          </tr>
+          <tr class="average views">
+            <td class="key">Average views:</td>
+            <td class="stat">{{ influencers.averageViews | number:0 }}</td>
+          </tr>
+          <tr class="growth">
+            <td class="key">Growth rate:</td>
+            <td class="stat">5%</td>
+          </tr>
+        </table>
+      </div>
+      <section class="about">
+        <h3>About {{influencers.profile.title.$t}}</h3>
+        <p>{{ influencers.profile.content.$t }}</p>
+      </section>
     </div>  
   </script> 
 
-</div>
+  <!-- END MODAL -->
 
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script> 
-	<script src="http://d3js.org/d3.v3.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-animate.js"></script>
+</div> <!-- ng-controller close -->
 
-  <script src="app.js"></script>
-  <script src="https://rawgithub.com/erost/ng-videosharing-embed/master/build/ng-videosharing-embed.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script> 
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-animate.js"></script>
+<script src="app.js"></script>
+<script src="https://rawgithub.com/erost/ng-videosharing-embed/master/build/ng-videosharing-embed.min.js"></script>
+<script src="ui-bootstrap-tpls-0.11.0.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.js"></script>
+<script src="ui-utils.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-	<script src="ui-bootstrap-tpls-0.11.0.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.js"></script>
-	<script src="ui-utils.min.js"></script>
 </body>
 </html>
-

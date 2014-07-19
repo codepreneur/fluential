@@ -115,11 +115,11 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 	});
 
 
-  $scope.influencersData = {};
+  $scope.influencers = ["PewDiePie", "holasoygerman", "smosh", "JennaMarbles", "nigahiga",  "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "TheFineBros", "portadosfundos", "werevertumorro", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew",   "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
 
-  $scope.influencers = ["PewDiePie", "holasoygerman", "smosh", "RihannaVEVO", "onedirectionvevo", "JennaMarbles", "KatyPerryVEVO", "eminemVEVO", "nigahiga", "youtubeshowsus", "machinima", "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "JustinBieberVEVO", "TheEllenShow", "TheFineBros", "portadosfundos"]
-
-  //, "werevertumorro", "TheOfficialSkrillex", "TaylorSwiftVEVO", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew", "VEVO", "mileycyrusvevo", "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
+  // EXCLUDE THESE
+  // "RihannaVEVO", "onedirectionvevo", "KatyPerryVEVO", "eminemVEVO","youtubeshowsus", "JustinBieberVEVO","TheOfficialSkrillex","VEVO","mileycyrusvevo", "TaylorSwiftVEVO","machinima","TheEllenShow",
+    
 
     
 
