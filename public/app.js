@@ -114,6 +114,8 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 		$scope.$apply()
 	});
 
+  $scope.influencersData = {};
+
 
   $scope.influencers = ["PewDiePie", "holasoygerman", "smosh", "JennaMarbles", "nigahiga",  "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "TheFineBros", "portadosfundos", "werevertumorro", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew",   "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
 
