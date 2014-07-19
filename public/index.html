@@ -72,7 +72,7 @@
               <img src="{{influencer.videos.0.media$group.media$thumbnail.0.url}}" alt="influencer"/>
             </div>
             <h2>{{ influencer.averageViews | number:0 }}<span class="views-text">views/vid</span></h2> 
-            <p>{{ influencer.profile.content.$t | limitTo: 100 }}<span ng-show="influencer.tooLongDescription">...</span></p>
+            <p>{{ influencer.profile.content.$t | limitTo: 110 }}<span ng-show="influencer.tooLongDescription">...</span></p>
           </div>
         </div>
       </div>
@@ -133,23 +133,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.js"></script>
 <script src="ui-utils.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script>
-
-  // $(document).ready(function() {
-
-  //   $('.container').each(function(){
-  //     $(".container p").each(function(i){
-  //       len=$(this).text().length;
-  //       if(len>90)
-  //       {
-  //         $(this).text($(this).text().substr(0,90)+'... >>');
-  //       }
-  //     });
-  //   });
-
-  // });
-
-</script>
 
 </body>
 </html>

@@ -137,7 +137,7 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 
             var views = profileData.yt$statistics.totalUploadViews;
 
-            var contentLength = profileData.content.$t.length > 250 ? true : false;
+            var contentLength = profileData.content.$t.length > 110 ? true : false;
             
 
             // console.log(contentLength);
