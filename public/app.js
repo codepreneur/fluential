@@ -48,6 +48,7 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 
   $scope.influencersData = {};
 
+  // $scope.influencers = ["ERB"]
   $scope.influencers = ["PewDiePie", "holasoygerman", "smosh", "JennaMarbles", "nigahiga",  "RayWilliamJohnson", "ERB", "SkyDoesMinecraft", "TheFineBros", "portadosfundos", "werevertumorro", "vanossgaming", "CaptainSparklez", "TheSyndicateProject", "elrubiusomg", "vsauce", "collegehumor", "officialpsy", "lady16makeup", "freddiew",   "vitalyzdtv", "speedyw03", "ShaneDawsonTV", "RoosterTeeth", "ElektraRecords", "BlueXephos", "TobyGames", "MichellePhan", "Macbarbie07", "EpicMealtime", "enchufetv", "ksiolajidebt", "vegetta777", "RiotGamesInc", "SpinninRec", "Tobuscus"];
 
   // EXCLUDE THESE
@@ -66,6 +67,11 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 
             var views = profileData.yt$statistics.totalUploadViews;
 
+            var contentLength = profileData.content.$t.length > 110 ? true : false;
+            
+
+            // console.log(contentLength);
+
 
             $http.get("http://gdata.youtube.com/feeds/api/users/"+ influencer +"/uploads?alt=json&max-results=10")
               .success(function(videoData){
@@ -82,7 +88,7 @@ app.controller('TagsCtrl', ['$scope','$modal','$log','$http','$window','$filter'
 
                 var averageViews = d3.mean(averageViewsArray.map(Number));
 
-                $scope.influencersData[influencer] = { profile: profileData, videos: videoData.feed.entry, username: influencer, code: code, subscribers: subscribers, views: views, averageViews: averageViews};
+                $scope.influencersData[influencer] = { profile: profileData, videos: videoData.feed.entry, username: influencer, code: code, subscribers: subscribers, views: views, averageViews: averageViews, tooLongDescription: contentLength};
 
               });
 
